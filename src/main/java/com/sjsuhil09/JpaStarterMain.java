@@ -11,25 +11,33 @@ import java.util.Date;
 
 public class JpaStarterMain {
     public static void main(String[] args) {
-        Employee employee =new Employee();
-        employee.setName("Varun");
-        employee.setDob(new Date());
-        employee.setSsn("123");
-        employee.setEmployeeType(EmployeeType.FULL_TIME);
-
-        Employee employee1 =new Employee();
-        employee1.setName("Vishal");
-        employee1.setDob(new Date());
-        employee1.setSsn("12345");
-        employee1.setEmployeeType(EmployeeType.CONTRACTOR);
-
+        //Reading the data
         EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("myApp");
         EntityManager entityManager= entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction=entityManager.getTransaction();
-        entityTransaction.begin();
-        entityManager.persist(employee);
-        entityManager.persist(employee1);
-        entityTransaction.commit();
+//        entityTransaction.begin();  No tran. is needed while fetching data.
+        Employee employee=entityManager.find(Employee.class,1);
+        System.out.println(employee);
+
+        // Value will be null if the employeee is not found.
+
+
+
+
+//        Employee employee =new Employee();
+//        employee.setName("Varun");
+//        employee.setDob(new Date());
+//        employee.setSsn("123");
+//        employee.setEmployeeType(EmployeeType.FULL_TIME);
+//
+//        Employee employee1 =new Employee();
+//        employee1.setName("Vishal");
+//        employee1.setDob(new Date());
+//        employee1.setSsn("12345");
+//        employee1.setEmployeeType(EmployeeType.CONTRACTOR);
+//        entityManager.persist(employee);
+//        entityManager.persist(employee1);
+//        entityTransaction.commit();
 
 
     }
