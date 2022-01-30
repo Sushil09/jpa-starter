@@ -15,13 +15,16 @@ public class JpaStarterMain {
         EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("myApp");
         EntityManager entityManager= entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction=entityManager.getTransaction();
-//        entityTransaction.begin();  No tran. is needed while fetching data.
-        Employee employee=entityManager.find(Employee.class,1);
+        entityTransaction.begin();  //No tran. is needed while fetching data.
+        Employee employee=entityManager.find(Employee.class,2);
         System.out.println(employee);
+        employee.setEmployeeType(EmployeeType.FULL_TIME);
+        entityManager.persist(employee);
+        entityTransaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
 
-        // Value will be null if the employeee is not found.
-
-
+// Value will be null if the employeee is not found.
 
 
 //        Employee employee =new Employee();
@@ -38,6 +41,8 @@ public class JpaStarterMain {
 //        entityManager.persist(employee);
 //        entityManager.persist(employee1);
 //        entityTransaction.commit();
+//        entityManager.close();
+//        entityManagerFactory.close();
 
 
     }
